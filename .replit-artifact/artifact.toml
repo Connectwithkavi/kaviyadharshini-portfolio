@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Kaviyadharshini Portfolio"
+description = "A premium personal portfolio for Kaviyadharshini V, an ECE engineering student building across software, cloud, IoT, electronics, and leadership."
+version = "1.0.0"
+id = "artifacts/kaviyadharshini-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25245
+
+[services.development]
+run = "pnpm --filter @workspace/kaviyadharshini-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/kaviyadharshini-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/kaviyadharshini-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25245"
+BASE_PATH = "/"
